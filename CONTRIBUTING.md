@@ -30,13 +30,13 @@ If something breaks, a skill behaves unexpectedly, or you have a feature idea, o
 
 ### What to Avoid
 
-- Don't rewrite a skill's voice or identity section without discussion — these are calibrated to produce specific Claude behaviors
-- Don't add dependencies on tools or services beyond MemPalace and standard Claude capabilities
-- Don't remove human-in-the-loop checkpoints — the confirmation gates exist for safety
+- Don't rewrite a skill's voice or identity section without discussion. These are calibrated to produce specific Claude behaviors.
+- Don't add dependencies on tools or services beyond MemPalace and standard Claude capabilities.
+- Don't remove human-in-the-loop checkpoints. The confirmation gates exist for safety.
 
 ## Skill Architecture
 
-Each skill is a single `SKILL.md` file with YAML frontmatter (name, description) and a markdown body containing phased instructions for Claude. The body is written in imperative voice — it tells Claude what to do, not the user.
+Each skill is a single `SKILL.md` file with YAML frontmatter (name, description) and a markdown body containing phased instructions for Claude. The body is written in imperative voice. It tells Claude what to do, not the user.
 
 If you're modifying a skill, read it end-to-end before changing anything. The phases are interdependent and the ordering is deliberate.
 

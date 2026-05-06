@@ -2,23 +2,21 @@
 
 **Persistent AI memory for writers who build worlds.**
 
-Reliquery is a context management and memory system that gives Claude persistent, accurate recall of your creative work across sessions. Instead of re-explaining your characters, factions, and storylines every time you open a new conversation, Reliquery lets Claude *remember* — pulling exactly the lore it needs from a searchable vault of your accumulated worldbuilding.
+Reliquery is a context management and memory system I built for Claude. It gives Claude long-term recall of your creative work across sessions. Instead of re-explaining your characters, factions, and storylines every time you open a new conversation, Claude searches a vault of your accumulated worldbuilding and pulls exactly what it needs.
 
 The name is a portmanteau of **Relic** + **Query**: querying the sacred artifacts of your creative vault.
 
 ---
 
-## The Problem
+## Why I Built This
 
-Large language models are stateless. Every conversation starts from zero. If you're building a world with dozens of characters, layered factions, and evolving storylines, you've felt this: the constant re-briefing, the contradictions that creep in when Claude forgets a detail you established three sessions ago, the slow erosion of narrative coherence.
+Large language models are stateless. Every conversation starts from zero. If you're building a world with dozens of characters, layered factions, and evolving storylines, you've felt this: the constant re-briefing, the contradictions that creep in when Claude forgets something you established three sessions ago, the slow erosion of coherence.
 
-Some workarounds exist — pasting lore into system prompts, maintaining a master document, manually copying context. They all hit the same wall: context windows are finite, and your world isn't. You end up choosing between dumping everything (too much noise) or curating by hand every session (too much work).
+Some workarounds exist. Pasting lore into system prompts. Maintaining a master document. Manually copying context. They all hit the same wall: context windows are finite, and your world isn't. You end up choosing between dumping everything (too much noise) or curating by hand every session (too much work).
 
-## The Solution
+Reliquery replaces that with reconstructive recall. Claude doesn't load your entire world into context. It formulates questions ("What is Sera's relationship with the Iron Council?"), searches your vault semantically, retrieves the specific passages it needs, and builds a picture shaped by whatever scene you're working on.
 
-Reliquery replaces manual context management with **reconstructive recall** — the same way human memory works. Claude doesn't load your entire world into context. It formulates intelligent questions ("What is Sera's relationship with the Iron Council?"), searches your vault semantically, retrieves the specific passages it needs, and assembles a coherent picture shaped by the current scene.
-
-Your world lives in structured markdown files called **relics** — one per character, location, faction, or concept. The relics are indexed into a local semantic search engine ([MemPalace](https://github.com/MemPalace/mempalace)), and Claude queries that engine through a set of orchestration skills that handle the entire lifecycle: intake, indexing, relationship mapping, and maintenance.
+Your world lives in structured markdown files called **relics**. One per character, location, faction, or concept. The relics get indexed into a local semantic search engine ([MemPalace](https://github.com/MemPalace/mempalace)), and Claude queries that engine through a set of orchestration skills that handle the full lifecycle: intake, indexing, relationship mapping, and maintenance.
 
 ---
 
@@ -32,15 +30,15 @@ Your world lives in structured markdown files called **relics** — one per char
 | **Memorize** | Indexes committed relics into searchable memory. Section-level chunking, duplicate detection, verification. |
 | **Cartograph** | Maps entity relationships into a temporal knowledge graph. Tracks who's allied with whom, and when things changed. |
 | **Forget** | Controlled deletion of stale or incorrect memory entries. Irreversible, so it always asks first. |
-| **Study** | The one-command pipeline: content → relics → memory → knowledge graph. Say "study this" and the system handles the rest. |
+| **Study** | The one-command pipeline: content to relics to memory to knowledge graph. Say "study this" and the system handles the rest. |
 
 Plus **Reliquery Help** as a built-in orientation guide.
 
 ### How It Works in Practice
 
 1. You write a chapter, run a co-writing session, or dump notes into a conversation
-2. Say "study this" — Reliquery extracts entities, creates structured relics, indexes them into memory, and maps relationships
-3. Next session, Claude automatically searches your vault when you mention a character or concept, pulling exactly the context it needs
+2. Say "study this." Reliquery extracts entities, creates structured relics, indexes them into memory, and maps relationships
+3. Next session, Claude searches your vault when you mention a character or concept, pulling exactly the context it needs
 4. Your world stays consistent across dozens or hundreds of sessions
 
 ### What a Relic Looks Like
@@ -77,7 +75,7 @@ philosophy — find people the world has already broken, offer
 them purpose, and bind their loyalty through gratitude...
 ```
 
-Relics are just markdown files with YAML frontmatter. You can edit them in any text editor. [Obsidian](https://obsidian.md) is recommended for its wiki-links and graph view, but it's not required.
+Relics are just markdown files with YAML frontmatter. You can edit them in any text editor. [Obsidian](https://obsidian.md) works well for its wiki-links and graph view, but it's not required.
 
 ---
 
@@ -85,11 +83,11 @@ Relics are just markdown files with YAML frontmatter. You can edit them in any t
 
 Reliquery has two layers and a skill orchestration system.
 
-**Layer 1 — The Vault**: A folder of markdown relic files, one per entity. YAML frontmatter provides structured metadata (type, status, keywords, relationships). The vault is the source of truth for all authored content.
+**Layer 1, the Vault**: A folder of markdown relic files, one per entity. YAML frontmatter provides structured metadata (type, status, keywords, relationships). The vault is the source of truth for all authored content.
 
-**Layer 2 — The Palace**: [MemPalace](https://github.com/MemPalace/mempalace), a local-first AI memory system built on ChromaDB (semantic vector search) and SQLite (temporal knowledge graph). It stores verbatim chunks of your vault content as searchable "drawers," organized into a spatial hierarchy: Wings → Rooms → Drawers.
+**Layer 2, the Palace**: [MemPalace](https://github.com/MemPalace/mempalace), a local-first AI memory system built on ChromaDB (semantic vector search) and SQLite (temporal knowledge graph). It stores verbatim chunks of your vault content as searchable "drawers," organized into a spatial hierarchy: Wings, Rooms, Drawers.
 
-**Orchestration — Skills**: Chronicle, Memorize, Cartograph, Forget, and Study are Claude skills — repeatable workflow instructions that Claude follows when invoked. No custom Python modules, no server forks, no code to maintain. The skills are portable markdown files.
+**Orchestration, the Skills**: Chronicle, Memorize, Cartograph, Forget, and Study are Claude skills. Repeatable workflow instructions that Claude follows when invoked. No custom Python modules, no server forks, no code to maintain. The skills are portable markdown files.
 
 ```
 Your Content → [Chronicle] → Vault Relics → [Memorize] → Searchable Memory
@@ -97,9 +95,9 @@ Your Content → [Chronicle] → Vault Relics → [Memorize] → Searchable Memo
                                               [Cartograph] → Knowledge Graph
 ```
 
-### Why Semantic Search, Not Keyword Injection
+### Why Semantic Search Instead of Keyword Injection
 
-Early versions of this system used keyword-triggered injection (inspired by SillyTavern's World Info). Testing proved it unnecessary. Claude doesn't search for raw terms — it formulates contextual questions and retrieves relevant fragments from multiple relics, reconstructing coherent context shaped by what the current scene needs. Semantic search is contextual where keyword matching is mechanical.
+Early versions of this system used keyword-triggered injection (inspired by SillyTavern's World Info). Testing proved it unnecessary. Claude doesn't search for raw terms. It formulates contextual questions and retrieves relevant fragments from multiple relics, reconstructing context shaped by what the current scene actually needs. Keyword matching is mechanical. Semantic search understands what you're asking about.
 
 ---
 
@@ -111,13 +109,13 @@ Early versions of this system used keyword-triggered injection (inspired by Sill
 - [Claude Desktop](https://claude.ai/download) or [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
 - A Claude Pro, Team, or Enterprise subscription
 
-### Step 1 — Install MemPalace
+### Step 1: Install MemPalace
 
 ```bash
 pip install mempalace
 ```
 
-### Step 2 — Connect to Claude
+### Step 2: Connect to Claude
 
 **Claude Code (recommended):**
 ```bash
@@ -143,7 +141,7 @@ Edit your config file:
 
 Restart Claude Desktop completely (exit from the system tray, then relaunch).
 
-### Step 3 — Install the Reliquery Plugin
+### Step 3: Install the Reliquery Plugin
 
 **Claude Code:**
 ```bash
@@ -154,7 +152,7 @@ claude plugin install path/to/reliquery
 
 Install the plugin from the `reliquery/` directory in this repo. The plugin includes all six skills and the MemPalace MCP server configuration.
 
-### Step 4 — Initialize Your Vault
+### Step 4: Initialize Your Vault
 
 ```bash
 mempalace init path/to/your/vault
@@ -162,7 +160,7 @@ mempalace init path/to/your/vault
 
 The directory name becomes your wing name in the palace. Choose it deliberately.
 
-### Step 5 — Mine Your Content
+### Step 5: Mine Your Content
 
 Mine each content folder separately for clean organization:
 
@@ -174,7 +172,7 @@ mempalace mine "path/to/vault/World/Factions" --wing your-wing
 
 Repeat for each content folder. Skip `.obsidian/` and `Templates/`.
 
-### Step 6 — Verify
+### Step 6: Verify
 
 Ask Claude to call `mempalace_status`. You should see your wing and drawer counts. Test a search against any entity from your vault.
 
@@ -201,7 +199,7 @@ Every session, Claude follows this sequence automatically:
 2. Identify all entities in your message
 3. Search for each entity's prose context and structured state
 4. Reconcile any conflicts (knowledge graph wins on current facts; prose wins on voice and detail)
-5. Write naturally — never referencing the lookups
+5. Write naturally, never referencing the lookups
 
 When the story changes an entity's state, Claude notes the changes in a changelog block for your review before anything touches the vault.
 
@@ -230,14 +228,14 @@ See the `examples/vault/` directory for sample relics.
 
 ## Not Just for Fiction
 
-Reliquery was built for worldbuilding and co-writing, but the architecture is domain-agnostic. The same vault-and-memory pattern works for:
+I built Reliquery for worldbuilding and co-writing, but the architecture doesn't care what kind of content you throw at it. The same vault-and-memory pattern works for:
 
-- **Tabletop RPG campaigns** — track NPCs, quests, session history, and party state
-- **Game design documentation** — mechanics, balance notes, playtest results
-- **Research projects** — literature notes, methodology records, evolving findings
+- **Tabletop RPG campaigns**: track NPCs, quests, session history, and party state
+- **Game design documentation**: mechanics, balance notes, playtest results
+- **Research projects**: literature notes, methodology records, evolving findings
 - **Any project where an AI collaborator needs persistent, accurate context**
 
-Chronicle's relic format adapts to the use case. Worldbuilding relics have character descriptions and faction structures. Research relics might have methodology sections and open questions. The frontmatter schema flexes; the pipeline stays the same.
+Chronicle's relic format adapts to the use case. Worldbuilding relics have character descriptions and faction structures. Research relics might have methodology sections and open questions. The frontmatter schema flexes. The pipeline stays the same.
 
 ---
 
