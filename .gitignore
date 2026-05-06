@@ -1,0 +1,39 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+venv/
+.venv/
+
+# MemPalace local data
+.mempalace/
+*.db
+*.sqlite
+
+# Obsidian internals
+.obsidian/
+.trash/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Staging and backup artifacts from Chronicle
+staging/
+backup-*/
+
+# Environment
+.env
+.env.local
