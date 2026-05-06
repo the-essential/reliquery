@@ -1,12 +1,12 @@
 {
   "name": "reliquery",
   "version": "1.0.0",
-  "description": "AI memory and context management system for worldbuilding, co-writing, and roleplaying. Turns raw content into structured vault relics, indexes them into semantic memory, and maps entity relationships — so Claude remembers your world between sessions.",
+  "description": "AI memory and context management system for worldbuilding, co-writing, and roleplaying. Turns raw content into structured vault relics, indexes them into semantic memory, and maps entity relationships so Claude remembers your world between sessions.",
   "author": {
     "name": "Jon Sarmenta"
   },
   "license": "MIT",
-  "repository": "https://github.com/jonsarmenta/reliquery",
+  "repository": "https://github.com/the-essential/reliquery",
   "keywords": [
     "worldbuilding",
     "writing",
