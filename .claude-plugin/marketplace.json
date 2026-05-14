@@ -1,0 +1,16 @@
+{
+  "name": "reliquery-marketplace",
+  "version": "1.0.0",
+  "description": "Local marketplace for the Reliquery plugin",
+  "owner": {
+    "name": "Jon Sarmenta"
+  },
+  "plugins": [
+    {
+      "name": "reliquery",
+      "source": "./reliquery",
+      "version": "1.0.0",
+      "description": "AI memory and context management system for worldbuilding, co-writing, and roleplaying."
+    }
+  ]
+}

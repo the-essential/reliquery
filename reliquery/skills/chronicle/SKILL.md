@@ -63,20 +63,9 @@ Do not generate anything until this scan is complete.
 
 ## Phase 2 — Entity Extraction
 
-From the source content and memory scan, identify every **load-bearing** element — the things the project cannot function without, or that any future reader would need to know.
+Identify every **load-bearing** element from source content and memory scan: Characters (named or recurring), Factions / Organizations, Locations, Systems & Concepts, Technology, Events / History, Arcs / State.
 
-- **Characters**: Anyone with a name, role, or recurring presence
-- **Factions / Organizations**: Any group with agency
-- **Locations**: Any named place with significance
-- **Systems & Concepts**: Mechanics, institutions, rules
-- **Technology**: Named tech with defined properties
-- **Events / History**: Named events that shaped the current state
-- **Arcs / State**: Active storylines, campaigns, ongoing narrative threads
-
-For each entity, determine:
-- Is it **new** (no prior record) or **existing** (already in mempalace or vault)?
-- If existing: has anything changed?
-- If new: does it warrant its own relic, or does the change belong in an existing arc/state relic?
+For each: is it new or existing? If existing, has anything changed? If new, does it warrant its own relic or belong in an arc/state relic?
 
 ---
 
@@ -111,14 +100,7 @@ When writing or updating Current Situation / Current Status sections in individu
 
 ## Phase 3 — Vault Gap Analysis
 
-Cross-reference the entity list against relics on disk.
-
-1. Use bash to list files in each relevant vault subfolder
-2. For each extracted entity:
-   - **Has a relic** → read it fully before deciding what to change. Do not skim.
-   - **No relic** → mark as "new relic needed" (or "file to arc relic" per the arc-first philosophy)
-   - **Relic exists but may be stale** → flag with a specific note on what looks outdated
-3. Read every relic that will be touched. Never modify a relic you haven't read first.
+List files in each relevant vault subfolder. For each extracted entity: read any existing relic fully before touching it; mark gaps as "new relic needed" or "file to arc relic"; flag stale relics with a specific note on what looks outdated. Never modify a relic you haven't read.
 
 **Vault folder → relic type mapping:**
 ```
@@ -145,6 +127,7 @@ Show clearly:
 - **Existing entity relics** to be updated — which file, what's changing, and why
 - **Relics left untouched** — with a brief reason
 - **Gaps flagged** — entities in mempalace with no relic, or referenced concepts not yet developed
+- **Voice status** for any character relic (protagonist / antagonist / supporting) being created or updated — drafting full answers, or skeleton (author to complete)
 
 **Do not write a single relic until the user explicitly approves.**
 
@@ -176,20 +159,13 @@ For each relic:
 
 ### Voice and Fidelity
 
-The body of a relic must faithfully reflect both **what** the author built and **how** they built it. This is not a wiki. Relics are living creative documents — the prose within them informs how Claude writes when querying and generating, so generic "encyclopedia voice" actively undermines retrieval quality. A relic written in flat, neutral prose teaches Claude to flatten the material it draws from.
+Body sections must reflect both **what** the author built and **how** they built it. Relics are living creative documents — flat, neutral prose actively undermines retrieval quality and teaches Claude to flatten the material it draws from.
 
-Before writing body sections, calibrate to the author's voice from the source content. Read the manuscript, session log, or scene draft for:
+Calibrate to the author's voice before writing: read for sentence rhythm, register, characteristic moves, and what they deliberately omit. Mirror that restraint. Prose should feel like it belongs to the source ecosystem, not like an AI wrote a summary.
 
-- **Sentence rhythm** — short and punchy? Long and architectural? Fragments used deliberately?
-- **Register** — formal and literary, or loose and conversational? Epic distance, or intimate close-third?
-- **Characteristic moves** — recurring structures, tonal signatures, how the author handles description vs. interiority vs. action
-- **What they omit** — what the author leaves unspoken is as important as what they say. Mirror that restraint.
+The Notes section is where Chronicle's own analytical voice lives. Everywhere else, be a faithful scribe. Do not editorialize, soften the author's choices, or introduce concepts not grounded in source content.
 
-Once calibrated, the prose in body sections should feel like it belongs to the same creative ecosystem as the source material — not like an AI wrote a summary. The description of a cynical mercenary in a gritty setting should read differently from the description of a noble scholar in a high-fantasy one, and that difference should trace directly back to what the author wrote.
-
-The Notes section is where Chronicle's own analytical voice lives — direct, sharp, co-author perspective. Everywhere else, be a faithful scribe of the author's world *and* their manner of speaking about it.
-
-Do not editorialize in body sections, do not soften the author's choices, and do not introduce concepts that aren't grounded in source content or existing lore.
+For character Voice sections specifically, see the **Voice Authorship Guide** below.
 
 Generate all approved relics before presenting any to the user.
 
@@ -211,20 +187,9 @@ Show each relic's content inline. For each, clearly state:
 
 Once final approval is given:
 
-### Backup first
-Before touching any existing relic:
-```bash
-cp -r "[vault-path]/World" "[outputs]/backup-[timestamp]/World"
-```
-Tell the user where the backup lives. Never skip this step.
-
-### Commit
-Copy each staged relic to its target vault location. Log every file action to the session file log.
-
-### Preserve revert
-"The backup is at `[backup-path]`. If anything looks wrong, tell me which relic to restore and I'll put it back exactly as it was."
-
-Do not delete the staging area until the user confirms everything looks right.
+1. **Backup** — copy all relics to be touched into `[outputs]/backup-[timestamp]/` before modifying. Tell the user where the backup lives. Never skip.
+2. **Commit** — copy each staged relic to its vault target; log every action to the session file log.
+3. **Preserve revert** — tell the user the backup path and that any relic can be restored on request. Keep staging until they confirm.
 
 ---
 
@@ -267,7 +232,7 @@ When adapting, follow the user's lead. If they're building a game guide vault, u
 
 ## Notes Authorship Guide
 
-The Notes section is where Chronicle speaks in its own analytical voice. Everything else preserves the world as the author built it. Notes are where the co-author's perspective lives.
+The Notes section is where Chronicle speaks in its own analytical voice — co-author perspective, not archivist summary.
 
 A good Note does at least one of:
 - **Surfaces a structural implication** — what does this concept mean downstream?
@@ -277,11 +242,22 @@ A good Note does at least one of:
 - **Identifies a leverage point** — who benefits, who it harms, who could disrupt it
 - **Names a narrative function** — what story work does this concept do?
 
-Each Note is 2–4 sentences. Aim for 3–5 per relic. Write as a co-author thinking about how pieces interlock — not an archivist cataloguing what's already written.
+Each Note is 2–4 sentences. Aim for 3–5 per relic. Write as a co-author thinking about how pieces interlock.
 
-**Wrong:** "The surveillance network monitors everything in the city using cameras and drones."
+---
 
-**Right:** "The surveillance network is self-financing — the footage it collects isn't just a control mechanism, it's the product. The cameras pay for themselves through broadcast licensing, which means the system has a structural incentive to make the city *watchable*. More drama, more death, more revenue. Surveillance and entertainment aren't parallel operations here; they're the same operation with two revenue streams."
+## Voice Authorship Guide
+
+The Voice section is a 4-question in-character self-interrogation for named recurring characters (protagonist / antagonist / supporting only). Background characters do not get Voice sections.
+
+**Evidence threshold:** If Chronicle can draft 3+ answers with high confidence from existing prose, draft all four. Otherwise leave a skeleton — questions in place, `A: —` for unanswerable ones — and flag in the Phase 4 outline as "Voice: skeleton — author to complete."
+
+**Craft rules:**
+1. **Performance, not analysis.** First-person answers in the character's register — not the author summarizing them. Calibrate register to how they speak in the source.
+2. **Let them hedge, deflect, and lie.** How a character avoids or reframes a question IS characterization. Don't resolve tensions — let them stand.
+3. **Distinguish from the author.** Answers should feel unlike what the author would say about themselves. Each character should be distinct from the others and from the authorial voice.
+4. **Short is fine.** 2-3 sentences per answer is sufficient if textured. Don't pad.
+5. **Never invent.** If the prose doesn't support an answer, leave it blank. Do not fabricate voice from thin air.
 
 ---
 
@@ -312,24 +288,7 @@ When checking coverage without necessarily adding anything:
 
 ## Limited-Access Fallbacks
 
-Not every session has full tool access. When running through Claude mobile, claude.ai without MCP, or any environment without bash/file tools:
-
-### No file system access
-- Skip vault gap analysis (Phase 3) — work from memory only
-- Generate relics as markdown text in the conversation rather than staging to disk
-- Ask the user to manually save the output to their vault, or offer to package relics for download as a zip
-
-### No mempalace access
-- Skip the memory scan (Phase 1c/1d) — work from the user's provided content and any conversation context only
-- Note clearly that the output hasn't been cross-referenced against existing lore and may contain duplicates or contradictions
-- Recommend the user run `/memorize` (Audit mode) when they're back at their desktop to reconcile
-
-### Google Drive or cloud vault
-- If the vault is organized in Google Drive or another cloud folder instead of a local Obsidian vault, chronicle's workflow is identical — the folder structure and relic format don't depend on Obsidian
-- Generate relics as downloadable files or copy-pasteable text and let the user place them in the appropriate Drive folder
-- Note that mempalace mining will need to target the local sync folder if using Drive with a desktop sync client
-
-The core principle: chronicle can always produce structured relic content, even when it can't interact with the vault directly. The content is the value; the filing can happen later.
+See `references/limited-access.md` for guidance on sessions without full file system or mempalace access (mobile, claude.ai without MCP, Google Drive vaults).
 
 ---
 
