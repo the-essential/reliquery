@@ -57,6 +57,9 @@ If the KG contradicts a prose entry, the **KG is authoritative for current state
 
 Note any entities in mempalace with no relic on disk — gaps to flag in Phase 3.
 
+### 1e — Load tag vocabulary
+Read `references/tags.md` if any character relics will be created or updated this session. This is the controlled vocabulary for the `tags` frontmatter field. All tags applied to character relics must come from this list. If a character's traits genuinely aren't covered, flag the gap in Phase 4 — do not invent new tags without author approval.
+
 Do not generate anything until this scan is complete.
 
 ---
@@ -128,6 +131,7 @@ Show clearly:
 - **Relics left untouched** — with a brief reason
 - **Gaps flagged** — entities in mempalace with no relic, or referenced concepts not yet developed
 - **Voice status** for any character relic (protagonist / antagonist / supporting) being created or updated — drafting full answers, or skeleton (author to complete)
+- **Tag status** for any character relic being created or updated — list proposed tags drawn from `references/tags.md`; flag any trait not covered by the existing vocabulary as a proposed addition requiring author approval before it's added to the list
 
 **Do not write a single relic until the user explicitly approves.**
 
