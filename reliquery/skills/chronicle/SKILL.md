@@ -57,8 +57,10 @@ If the KG contradicts a prose entry, the **KG is authoritative for current state
 
 Note any entities in mempalace with no relic on disk — gaps to flag in Phase 3.
 
-### 1e — Load tag vocabulary
-Read `references/tags.md` if any character relics will be created or updated this session. This is the controlled vocabulary for the `tags` frontmatter field. All tags applied to character relics must come from this list. If a character's traits genuinely aren't covered, flag the gap in Phase 4 — do not invent new tags without author approval.
+### 1e — Assemble tag vocabulary from vault
+If any character relics will be created or updated this session, build a working tag vocabulary by scanning existing character files in the vault. List all files in the vault's character folder and read the `tags` frontmatter field from each. Compile the unique values into a working list for this session — this is the vocabulary Chronicle will draw from when tagging character relics.
+
+Any proposed tag not found in the scan is a new addition. Flag it in the Phase 4 outline and do not apply it without author approval. If the vault has no character files with tags yet, the vocabulary starts empty: propose tags descriptively and let the author seed the list by approving them.
 
 Do not generate anything until this scan is complete.
 
@@ -131,7 +133,7 @@ Show clearly:
 - **Relics left untouched** — with a brief reason
 - **Gaps flagged** — entities in mempalace with no relic, or referenced concepts not yet developed
 - **Voice status** for any character relic (protagonist / antagonist / supporting) being created or updated — drafting full answers, or skeleton (author to complete)
-- **Tag status** for any character relic being created or updated — list proposed tags drawn from `references/tags.md`; flag any trait not covered by the existing vocabulary as a proposed addition requiring author approval before it's added to the list
+- **Tag status** for any character relic being created or updated — list proposed tags drawn from the session's assembled vocabulary (Phase 1e); flag any proposed tag not found in the vault scan as a new addition requiring author approval
 
 **Do not write a single relic until the user explicitly approves.**
 
