@@ -1,45 +1,51 @@
 # Contributing to Reliquery
 
-Thanks for your interest in contributing. Reliquery is a personal project that grew out of a real creative writing workflow, and contributions that improve the system for other writers and worldbuilders are welcome.
+Hi. I'm Jon — I built this for my own creative writing workflow and released it because the people I showed it to kept asking if they could use it too. If you're reading this, you're probably one of those people. Thanks for being here.
 
-## How to Contribute
+Reliquery is actively maintained by one person (me), which means contributions are genuinely useful — not symbolic. It also means I'd rather get a small, focused PR I can merge in an evening than a sprawling refactor I have to negotiate over a week. Calibrate accordingly.
 
-### Reporting Issues
+## What I'd love help with right now
 
-If something breaks, a skill behaves unexpectedly, or you have a feature idea, open a GitHub issue. Include:
+In rough order of how grateful I'd be:
 
+1. **A working Claude Code install path.** Right now `claude plugin install path/to/reliquery.plugin` errors with "not found in any configured marketplace." If you know the actual correct invocation — or have a clean workaround that doesn't require publishing to a marketplace — please open an issue or PR. This is the biggest friction point for new users.
+2. **Example relics for use cases that aren't mine.** The `examples/vault/` directory has fiction. `examples/vault-ttrpg/` has a tiny tabletop sample. If you use Reliquery for research notes, game design docs, a D&D campaign you actually run, or anything else — a small set of real-ish relics from your domain would help the next person see themselves in the project. Sanitize as needed.
+3. **Troubleshooting documentation.** If you hit a wall during install or first use and figured out the answer, write it down. Even a paragraph in a GitHub issue I can fold into a TROUBLESHOOTING.md is gold.
+4. **Skill edge cases.** If Chronicle mis-chunks a weird input, or Memorize creates duplicate drawers under conditions I haven't seen, open an issue with a reproducible example. I can usually fix the skill in a session if I can reproduce the problem.
+
+## What I'd rather you didn't do (yet)
+
+- **Don't rewrite a skill's voice or identity section without talking to me first.** The skill prompts are calibrated — sometimes painfully — to produce specific Claude behaviors. A "cleanup" PR that flattens the voice will usually break something subtle.
+- **Don't add dependencies beyond MemPalace and standard Claude features.** The portability of the skills is the whole point. If a problem needs a new dependency, the right answer is usually that the problem belongs upstream in MemPalace or downstream in your own fork.
+- **Don't remove the human-in-the-loop checkpoints.** Chronicle and Forget both pause for confirmation in specific places. Those gates exist because I've watched the alternatives go wrong. If you think a checkpoint is unnecessary, open an issue and let's talk before you cut it.
+
+## How to actually contribute
+
+For bug reports, open an issue with:
 - What you were trying to do
 - What happened instead
-- Your setup (Claude Desktop vs. Claude Code, OS, MemPalace version)
+- Your setup (Claude Desktop vs. Claude Code, OS, MemPalace version, plugin install method)
 
-### Suggesting Changes
+For changes:
 
-1. Fork the repository
-2. Create a branch for your change (`git checkout -b my-change`)
-3. Make your edits
-4. Test the affected skills in a Claude session if possible
-5. Commit with a clear message describing what changed and why
-6. Open a pull request
+1. Fork the repo
+2. Branch off `main` (`git checkout -b your-change`)
+3. Make the change
+4. If you touched a skill, run it through a real Claude session on a small piece of content before opening the PR. The skills are too long to fully cover with unit tests; the best validation is "did Claude do the thing"
+5. Commit with a message that says *what* changed and *why* (the why matters more than the what)
+6. Open a PR. I read them.
 
-### What Makes a Good Contribution
+## Quick orientation if you're new to the codebase
 
-- **Skill improvements**: Better chunking logic, smarter duplicate detection, clearer checkpoint prompts, edge case handling
-- **Documentation**: Clearer setup instructions, additional examples, troubleshooting tips
-- **Example vault content**: Sample relics for different use cases (game design, research notes, campaign logs) that help new users understand the format
-- **Bug fixes**: Anything that makes the pipeline more reliable
+- `reliquery/skills/` — the six skill files. Each is a single `SKILL.md` with YAML frontmatter and imperative-voice phased instructions. Read end-to-end before editing; the phases reference each other.
+- `reliquery/skills/chronicle/references/` — long-form reference material extracted from `SKILL.md` to keep the main file lean. Chronicle loads these on demand.
+- `examples/vault/` and `examples/vault-ttrpg/` — sample relics. Safe to use as templates.
+- `reliquery.plugin` — the packaged plugin file for Claude Desktop / Cowork.
 
-### What to Avoid
+## Code of conduct
 
-- Don't rewrite a skill's voice or identity section without discussion. These are calibrated to produce specific Claude behaviors.
-- Don't add dependencies on tools or services beyond MemPalace and standard Claude capabilities.
-- Don't remove human-in-the-loop checkpoints. The confirmation gates exist for safety.
+Be kind. Be specific. Assume the other person is doing their best with the information they have. The people using this system are trusting it with their creative work, which is not a small thing — bring that energy to issues and PRs.
 
-## Skill Architecture
+If you're not sure whether something is worth opening an issue for, open it. I'd rather close a friendly one than miss a real one.
 
-Each skill is a single `SKILL.md` file with YAML frontmatter (name, description) and a markdown body containing phased instructions for Claude. The body is written in imperative voice. It tells Claude what to do, not the user.
-
-If you're modifying a skill, read it end-to-end before changing anything. The phases are interdependent and the ordering is deliberate.
-
-## Code of Conduct
-
-Be kind. Be constructive. Remember that the people using this system are entrusting their creative work to it.
+— Jon

@@ -34,6 +34,21 @@ Your world lives in structured markdown files called **relics**. One per charact
 
 Plus **Reliquery Help** as a built-in orientation guide.
 
+---
+
+## Not Just for Fiction
+
+I built Reliquery for worldbuilding and co-writing, but the architecture doesn't care what kind of content you throw at it. The same vault-and-memory pattern works for:
+
+- **Tabletop RPG campaigns**: track NPCs, quests, session history, and party state
+- **Game design documentation**: mechanics, balance notes, playtest results
+- **Research projects**: literature notes, methodology records, evolving findings
+- **Any project where an AI collaborator needs persistent, accurate context**
+
+Chronicle's relic format adapts to the use case. Worldbuilding relics have character descriptions and faction structures. Research relics might have methodology sections and open questions. The frontmatter schema flexes. The pipeline stays the same.
+
+---
+
 ### How It Works in Practice
 
 1. You write a chapter, run a co-writing session, or dump notes into a conversation
@@ -143,14 +158,21 @@ Restart Claude Desktop completely (exit from the system tray, then relaunch).
 
 ### Step 3: Install the Reliquery Plugin
 
-**Claude Code:**
-```bash
-claude plugin install path/to/reliquery
-```
+Grab `reliquery.plugin` from the root of this repo (clone the repo or download the file directly from GitHub — it's a single zip archive).
 
-**Claude Desktop / Cowork:**
+**Claude Desktop (Windows, macOS, Linux):**
 
-Install the plugin from the `reliquery/` directory in this repo. The plugin includes all six skills and the MemPalace MCP server configuration.
+1. Click **Customize** in the sidebar
+2. Next to **Personal Plugins**, click the **+** icon
+3. Hover **Create Plugin** → click **Upload Plugin**
+4. Select the `reliquery.plugin` file you downloaded
+5. Restart Claude Desktop completely (exit from the system tray, then relaunch)
+
+You should see the Reliquery skills available in the next conversation.
+
+**Cowork:**
+
+Use the Claude Desktop flow above. Cowork reads from the same Personal Plugins list.
 
 ### Step 4: Initialize Your Vault
 
@@ -224,18 +246,6 @@ Your-Vault/
 
 See the `examples/vault/` directory for sample relics.
 
----
-
-## Not Just for Fiction
-
-I built Reliquery for worldbuilding and co-writing, but the architecture doesn't care what kind of content you throw at it. The same vault-and-memory pattern works for:
-
-- **Tabletop RPG campaigns**: track NPCs, quests, session history, and party state
-- **Game design documentation**: mechanics, balance notes, playtest results
-- **Research projects**: literature notes, methodology records, evolving findings
-- **Any project where an AI collaborator needs persistent, accurate context**
-
-Chronicle's relic format adapts to the use case. Worldbuilding relics have character descriptions and faction structures. Research relics might have methodology sections and open questions. The frontmatter schema flexes. The pipeline stays the same.
 
 ---
 
