@@ -22,11 +22,11 @@ Your world lives in structured markdown files called **relics**. One per charact
 
 ## See It Working
 
-Fresh conversation. No context pasted. No system prompt loaded with lore.
+Fresh conversation with no lore committed to reliquery memory, asking about a character from my high fantasy cooking academy RPG.
 
 ![A brand new Claude session with no prior context](assets/demo-before.gif)
 
-One question about a character from the Ortolan Institute vault:
+Asking about that same character after running the chronicle and memorize reliquery skills:
 
 ![Querying Claude for Brecca Tidewell across sessions](assets/demo-after.gif)
 
